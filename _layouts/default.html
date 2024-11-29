@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <style>
+      :root {
+        --background-color: #0d1117;
+        --text-color: #c9d1d9;
+        --card-background: #161b22;
+        --card-border: rgba(255, 255, 255, 0.1);
+        --header-background: #161b22;
+        --link-color: #58a6ff;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+      }
+
+      .wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header styles */
+      .site-header {
+        background-color: var(--header-background);
+        border-bottom: 1px solid var(--card-border);
+        padding: 1rem 0;
+        position: relative;
+      }
+
+      .site-header .wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .site-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--link-color);
+        text-decoration: none;
+      }
+
+      .site-title:hover {
+        text-decoration: none;
+      }
+
+      .site-nav {
+        display: flex;
+        align-items: center;
+      }
+
+      .site-nav .nav-trigger {
+        display: none;
+      }
+
+      .site-nav .menu-icon {
+        display: none;
+      }
+
+      .site-nav .page-link {
+        color: var(--text-color);
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 6px;
+        background-color: var(--card-background);
+        border: 1px solid var(--card-border);
+      }
+
+      .site-nav .page-link:hover {
+        background-color: #1f2937;
+      }
+
+      /* Content styles */
+      .page-content {
+        padding: 2rem 0;
+      }
+
+      .experience-item {
+        background-color: var(--card-background);
+        border: 1px solid var(--card-border);
+        border-radius: 6px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .experience-title {
+        margin: 0 0 8px 0;
+        font-size: 1.25rem;
+        color: var(--text-color);
+      }
+
+      .company-name {
+        font-size: 1.1rem;
+        color: var(--text-color);
+        opacity: 0.9;
+      }
+
+      .duration {
+        font-size: 0.9rem;
+        color: var(--text-color);
+        opacity: 0.7;
+        margin-top: 4px;
+      }
+
+      .description {
+        margin-top: 12px;
+        color: var(--text-color);
+      }
+
+      .description p {
+        margin: 0 0 12px 0;
+      }
+
+      .description ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      .description li {
+        margin-bottom: 4px;
+      }
+
+      .skills {
+        margin-top: 12px;
+      }
+
+      .skills span {
+        display: inline-block;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 0.9rem;
+        margin-right: 8px;
+        margin-bottom: 8px;
+      }
+
+      /* Mobile styles */
+      @media screen and (max-width: 600px) {
+        .site-nav .menu-icon {
+          display: block;
+          float: right;
+          width: 36px;
+          height: 36px;
+          line-height: 0;
+          text-align: center;
+          cursor: pointer;
+        }
+
+        .site-nav .menu-icon > svg path {
+          fill: var(--text-color);
+        }
+
+        .site-nav .trigger {
+          display: none;
+          position: absolute;
+          top: 100%;
+          right: 20px;
+          background-color: var(--card-background);
+          border: 1px solid var(--card-border);
+          border-radius: 6px;
+          padding: 10px;
+          margin-top: 10px;
+        }
+
+        .site-nav input:checked ~ .trigger {
+          display: block;
+        }
+
+        .site-nav .page-link {
+          display: block;
+          margin: 5px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {%- include header.html -%}
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </main>
+  </body>
+</html> 
