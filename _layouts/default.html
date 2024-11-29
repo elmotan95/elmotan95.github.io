@@ -147,14 +147,25 @@
 
       /* Mobile styles */
       @media screen and (max-width: 600px) {
+        .site-nav {
+          position: absolute;
+          right: 20px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
         .site-nav .menu-icon {
           display: block;
-          float: right;
-          width: 36px;
-          height: 36px;
-          line-height: 0;
-          text-align: center;
+          padding: 8px;
           cursor: pointer;
+          background-color: var(--card-background);
+          border: 1px solid var(--card-border);
+          border-radius: 6px;
+        }
+
+        .site-nav .menu-icon > svg {
+          width: 24px;
+          height: 24px;
         }
 
         .site-nav .menu-icon > svg path {
@@ -164,13 +175,13 @@
         .site-nav .trigger {
           display: none;
           position: absolute;
-          top: 100%;
-          right: 20px;
+          top: calc(100% + 8px);
+          right: 0;
           background-color: var(--card-background);
           border: 1px solid var(--card-border);
           border-radius: 6px;
-          padding: 10px;
-          margin-top: 10px;
+          padding: 8px;
+          min-width: 160px;
         }
 
         .site-nav input:checked ~ .trigger {
@@ -179,7 +190,18 @@
 
         .site-nav .page-link {
           display: block;
-          margin: 5px 0;
+          margin: 8px 0;
+          text-align: left;
+          border: none;
+          background: none;
+        }
+
+        .site-nav .page-link:first-child {
+          margin-top: 0;
+        }
+
+        .site-nav .page-link:last-child {
+          margin-bottom: 0;
         }
       }
     </style>
