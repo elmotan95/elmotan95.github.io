@@ -228,6 +228,11 @@
       // Only enable Sentry in production
       if (window.Sentry && '{{ jekyll.environment }}' === 'production') {
         console.log('Sentry enabled in production');
+        window.Sentry.onLoad(function() {
+          window.Sentry.init({
+            // You can add any additional configuration here
+          });
+        });
       } else {
         // Disable Sentry in non-production environments
         if (window.Sentry) {
