@@ -1,0 +1,146 @@
+---
+layout: default
+title: Danamon JCB D-Point Calculator
+---
+
+<h1>Danamon JCB D-Point Calculator</h1>
+<p>Kalkulator untuk menghitung total D-Point yang diperoleh untuk total transaksi nominal tertentu. Hanya berlaku untuk kartu Danamon JCB Precious</p>
+
+<form id="dpoint-form" style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 1em; margin-bottom: 1em;">
+  <div style="display: flex; flex-direction: column;">
+    <label for="transaction">Total Transaksi (IDR):</label>
+    <input type="number" id="transaction" value="10000000" name="transaction" required style="min-width: 220px; font-size: 1.1em; padding: 10px 14px; border-radius: 8px; border: 1px solid #ccc; background: rgba(255, 255, 255, 0); color: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.03); transition: border 0.2s; outline: none;">
+  </div>
+  <div style="display: flex; flex-direction: column;">
+    <label for="limit">Credit Card Limit (IDR):</label>
+    <input type="number" id="limit" name="limit" value="25000000" required style="min-width: 220px; font-size: 1.1em; padding: 10px 14px; border-radius: 8px; border: 1px solid #ccc; background: rgba(255, 255, 255, 0); color: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.03); transition: border 0.2s; outline: none;">
+  </div>
+  <button type="submit" style="height: 42px; font-size: 1.1em; border-radius: 8px; padding: 0 18px; background: #2d8cf0; color: #fff; border: none; cursor: pointer; transition: background 0.2s;">Calculate</button>
+</form>
+
+<div id="result" style="margin-top:2em;"></div>
+
+<script>
+	// KF Miles Calculator (based on D-Point rules)
+	function calculateKFMiles(transaction, limit = 25000000) {
+		const baseRegular = 10000;
+		const baseBonus = 16000;
+		const base3x = 30000;
+		const dpointToMiles = 20;
+
+		const ratio = transaction / limit;
+
+		const regular = baseRegular * ratio;
+		const bonus16k = transaction >= 10000000 ? baseBonus : 0;
+		const bonus3x = base3x * ratio;
+
+		const totalDPoint = regular + bonus16k + bonus3x;
+		const kfMiles = totalDPoint / 20;
+		const asiaMiles = totalDPoint / 20;
+		const garudaMiles = totalDPoint / 15;
+		const enrichMiles = totalDPoint / 15;
+		const bigMiles = totalDPoint / 10;
+		const jalMiles = totalDPoint / 32;
+		const costPerMile = kfMiles > 0 ? transaction / kfMiles : 0;
+
+		return {
+			transaction,
+			regular: Math.round(regular),
+			bonus16k,
+			bonus3x: Math.round(bonus3x),
+			totalDPoint: Math.round(totalDPoint),
+			kfMiles: Math.round(kfMiles),
+			asiaMiles: Math.round(asiaMiles),
+			garudaMiles: Math.round(garudaMiles),
+			enrichMiles: Math.round(enrichMiles),
+			bigMiles: Math.round(bigMiles),
+			jalMiles: Math.round(jalMiles),
+			costPerMile: Math.round(costPerMile)
+		};
+	}
+
+	document.getElementById('dpoint-form').addEventListener('submit', function(e) {
+		e.preventDefault();
+		const transaction = parseInt(document.getElementById('transaction').value, 10);
+		const limit = parseInt(document.getElementById('limit').value, 10);
+		if (transaction > limit) {
+			document.getElementById('result').innerHTML = '<p style="color:#ff4d4f;font-weight:bold;">Total transaksi tidak boleh lebih besar dari credit card limit.</p>';
+			return;
+		}
+		const result = calculateKFMiles(transaction, limit);
+		document.getElementById('result').innerHTML = `
+    <h2>Result</h2>
+    <ul>
+      <li><strong>Transaction:</strong> Rp${result.transaction.toLocaleString()}</li>
+      <li><strong>Regular D-Point:</strong> ${result.regular}</li>
+      <li><strong>Bonus 16K:</strong> ${result.bonus16k}</li>
+      <li><strong>Bonus 3x:</strong> ${result.bonus3x}</li>
+      <li><strong>Total D-Point:</strong> ${result.totalDPoint}</li>
+    </ul>
+    <h3>Miles Conversion Table</h3>
+    <style>
+      .miles-table {
+        width: 100%;
+        max-width: 500px;
+        border-collapse: separate;
+        border-spacing: 0;
+        font-family: sans-serif;
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        margin-top: 1em;
+      }
+
+      .miles-table thead {
+        background: rgba(0, 0, 0, 0.5);
+        font-weight: bold;
+        font-size: 16px;
+      }
+
+      .miles-table th,
+      .miles-table td {
+        padding: 12px 16px;
+        text-align: left;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .miles-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .miles-table tbody tr:hover {
+        background-color: #000;
+      }
+
+      .cost-footer {
+        margin-top: 1em;
+        font-weight: 600;
+        font-size: 1em;
+      }
+    </style>
+
+    <table class="miles-table">
+      <thead>
+        <tr>
+          <th>Program</th>
+          <th>Miles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Singapore Airlines (KF Miles)</td><td>${result.kfMiles.toLocaleString()}</td></tr>
+        <tr><td>Asia Miles</td><td>${result.asiaMiles.toLocaleString()}</td></tr>
+        <tr><td>GarudaMiles</td><td>${result.garudaMiles.toLocaleString()}</td></tr>
+        <tr><td>Enrich Miles</td><td>${result.enrichMiles.toLocaleString()}</td></tr>
+        <tr><td>BIG AirAsia Miles</td><td>${result.bigMiles.toLocaleString()}</td></tr>
+        <tr><td>JAL Mileage</td><td>${result.jalMiles.toLocaleString()}</td></tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:2em;font-size:0.97em;color:#aaa;">
+      <strong>Source:</strong> <a href="https://www.danamon.co.id/id/Personal/Promo/Promo-Kartu-Danamon/Promo-Kartu-JCB/Info-Lengkap-Fitur-Kartu-Kredit-Danamon-JCB-Precious" target="_blank" rel="noopener" style="color:#2d8cf0;">danamon.co.id - Info Lengkap Fitur Kartu Kredit Danamon JCB Precious</a><br>
+      <em>Disclaimer: Perhitungan ini berdasarkan informasi terakhir dari website Danamon. Jika ada perubahan program, silakan selalu cek ke website resmi Danamon untuk info terbaru.</em>
+    </p>
+  `;
+	});
+</script>

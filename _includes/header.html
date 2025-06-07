@@ -13,11 +13,61 @@
       </label>
 
       <div class="trigger">
-        <a class="page-link" href="{{ '/tools.html' | relative_url }}">Test Ad & Trackers</a>
+        <div class="dropdown">
+          <span class="page-link">Miles Tools ▾</span>
+          <div class="dropdown-content">
+            <a class="page-link" href="{{ '/dpoint.html' | relative_url }}">Danamon JCB D-Point Calculator</a>
+            <!-- Add more tools here as needed -->
+          </div>
+        </div>
         {% if site.github_username %}
           <a class="page-link" href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">GitHub</a>
         {% endif %}
       </div>
     </nav>
   </div>
-</header> 
+</header>
+<style>
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown .page-link {
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.3s ease;
+  }
+
+  .dropdown .dropdown-content {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    min-width: 240px;
+    z-index: 1000;
+    border-radius: 12px;
+    padding: 0.5em 0;
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
+
+  .dropdown .dropdown-content a {
+    color: #ccc;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: 15px;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .dropdown .dropdown-content a:hover {
+    background-color: #1f2937;
+    color: #fff;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+</style>

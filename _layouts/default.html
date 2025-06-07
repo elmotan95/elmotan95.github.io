@@ -224,6 +224,18 @@
       src="https://js.sentry-cdn.com/e59705c7ef2d6af7795b273248e096a4.min.js"
       crossorigin="anonymous"
     ></script>
+    <script>
+      // Only enable Sentry in production
+      if (window.Sentry && '{{ jekyll.environment }}' === 'production') {
+        console.log('Sentry enabled in production');
+      } else {
+        // Disable Sentry in non-production environments
+        if (window.Sentry) {
+          window.Sentry.init = function() {};
+        }
+        console.log('Sentry disabled in development');
+      }
+    </script>
   </head>
   <body>
     {%- include header.html -%}
