@@ -1,275 +1,285 @@
 ---
 layout: default
-title: Share Text
+title: Projects
+description: "Explore tools and projects built by Elmo Miharja"
 ---
 
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Self-Destructing Text - momokun.id</title>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #f8f9fa;
-      color: #212529;
-    }
-    
-    .container {
-      background-color: white;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-    
-    h1 {
-      margin: 0 0 1.5rem;
-      font-size: 1.75rem;
-      color: #1a1a1a;
-    }
-    
-    textarea {
-      width: 100%;
-      min-height: 200px;
-      margin: 1rem 0;
-      padding: 1rem;
-      border: 1px solid #dee2e6;
-      border-radius: 8px;
-      resize: vertical;
-      font-size: 1rem;
-      line-height: 1.5;
-      transition: border-color 0.15s ease-in-out;
-    }
-    
-    textarea:focus {
-      outline: none;
-      border-color: #007bff;
-      box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
-    }
-    
-    .controls {
-      display: flex;
-      gap: 1rem;
-      margin: 1rem 0;
-      align-items: center;
-    }
-    
-    select {
-      padding: 0.5rem 1rem;
-      border: 1px solid #dee2e6;
-      border-radius: 6px;
-      background-color: white;
-      font-size: 0.95rem;
-      min-width: 120px;
-    }
-    
-    button {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 6px;
-      background-color: #007bff;
-      color: white;
-      cursor: pointer;
-      font-size: 0.95rem;
-      transition: background-color 0.15s ease-in-out;
-    }
-    
-    button:hover {
-      background-color: #0056b3;
-    }
-    
-    button:disabled {
-      background-color: #b3d7ff;
-      cursor: not-allowed;
-    }
-    
-    .share-link {
-      margin-top: 1.5rem;
-      padding: 1rem;
-      background-color: #f8f9fa;
-      border-radius: 8px;
-      display: none;
-    }
-    
-    .share-link p {
-      margin: 0 0 0.5rem;
-      color: #495057;
-    }
-    
-    .link-container {
-      display: flex;
-      gap: 0.5rem;
-    }
-    
-    .link-container input {
-      flex: 1;
-      padding: 0.5rem;
-      border: 1px solid #dee2e6;
-      border-radius: 6px;
-      font-size: 0.95rem;
-    }
-    
-    .timer {
-      margin-top: 1rem;
-      color: #dc3545;
-      font-weight: 500;
-    }
-    
-    .destroyed {
-      display: none;
-      text-align: center;
-      padding: 2rem;
-      color: #dc3545;
-      border: 1px solid #f5c2c7;
-      background-color: #f8d7da;
-      border-radius: 8px;
-      margin-top: 1rem;
-    }
-    
-    .feedback {
-      display: none;
-      padding: 0.5rem 1rem;
-      margin-top: 0.5rem;
-      border-radius: 6px;
-      background-color: #d4edda;
-      color: #155724;
-    }
-  </style>
-</head>
-<body>
-<div class="container">
-  <h1>Self-Destructing Text</h1>
-  
-  <div id="textInput">
-    <textarea 
-      id="message" 
-      placeholder="Enter your text here..."
-      maxlength="5000"
-    ></textarea>
-    
-    <div class="controls">
-      <select id="timeLimit">
-        <option value="5">5 minutes</option>
-        <option value="10">10 minutes</option>
-        <option value="30">30 minutes</option>
-        <option value="60">1 hour</option>
-        <option value="1440">24 hours</option>
-      </select>
-      <button id="generateBtn" onclick="generateLink()">Generate Share Link</button>
-    </div>
-  </div>
-
-  <div id="shareLink" class="share-link">
-    <p>Share this link:</p>
-    <div class="link-container">
-      <input type="text" id="link" readonly>
-      <button onclick="copyLink()">Copy</button>
-    </div>
-    <div class="timer" id="timer"></div>
-    <div id="feedback" class="feedback">Link copied to clipboard!</div>
-  </div>
-
-  <div id="destroyed" class="destroyed">
-    <p>This text has been destroyed and is no longer accessible.</p>
-  </div>
+<div class="hero">
+  <h1 class="hero-title">Projects</h1>
+  <p class="hero-subtitle">Tools and experiments I've built to solve everyday problems</p>
 </div>
 
-<script>
-  let timeRemaining = 0;
-  let timerInterval;
-  const generateBtn = document.getElementById('generateBtn');
-  const feedback = document.getElementById('feedback');
-
-  function generateLink() {
-    const text = document.getElementById('message').value.trim();
-    if (!text) {
-      alert('Please enter some text first');
-      return;
-    }
-
-    generateBtn.disabled = true;
-    generateBtn.textContent = 'Generating...';
-
-    // Simulate API call
-    setTimeout(() => {
-      const mockId = Math.random().toString(36).substring(7);
-      const minutes = parseInt(document.getElementById('timeLimit').value);
-      const link = `https://momokun.id/share/${mockId}`;
-
-      document.getElementById('link').value = link;
-      document.getElementById('shareLink').style.display = 'block';
-      document.getElementById('message').disabled = true;
-      document.getElementById('timeLimit').disabled = true;
-      generateBtn.textContent = 'Generate Share Link';
-
-      timeRemaining = minutes * 60;
-      startTimer();
-    }, 500);
+<style>
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 24px;
+    margin-bottom: 64px;
   }
 
-  function startTimer() {
-    updateTimer();
-    if (timerInterval) {
-      clearInterval(timerInterval);
-    }
-    
-    timerInterval = setInterval(() => {
-      timeRemaining--;
-      if (timeRemaining <= 0) {
-        destroyText();
-      } else {
-        updateTimer();
-      }
-    }, 1000);
+  .project-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-default);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
   }
 
-  function updateTimer() {
-    const hours = Math.floor(timeRemaining / 3600);
-    const minutes = Math.floor((timeRemaining % 3600) / 60);
-    const seconds = timeRemaining % 60;
-    
-    let timeString = '';
-    if (hours > 0) {
-      timeString += `${hours}h `;
-    }
-    timeString += `${minutes}m ${seconds}s`;
-    
-    document.getElementById('timer').textContent = `Time remaining: ${timeString}`;
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
-  function destroyText() {
-    clearInterval(timerInterval);
-    document.getElementById('textInput').style.display = 'none';
-    document.getElementById('shareLink').style.display = 'none';
-    document.getElementById('destroyed').style.display = 'block';
+  .project-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-large);
+    border-color: var(--accent-primary);
   }
 
-  async function copyLink() {
-    const link = document.getElementById('link');
-    
-    try {
-      await navigator.clipboard.writeText(link.value);
-      feedback.style.display = 'block';
-      setTimeout(() => {
-        feedback.style.display = 'none';
-      }, 2000);
-    } catch (err) {
-      // Fallback for older browsers
-      link.select();
-      document.execCommand('copy');
-      window.getSelection().removeAllRanges();
-    }
+  .project-card:hover::before {
+    opacity: 1;
   }
 
-  // Cleanup on page unload
-  window.addEventListener('beforeunload', () => {
-    if (timerInterval) {
-      clearInterval(timerInterval);
+  .project-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 12px 0;
+  }
+
+  .project-description {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .tech-tag {
+    background: var(--bg-tertiary);
+    color: var(--accent-primary);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid var(--border-default);
+  }
+
+  .project-links {
+    display: flex;
+    gap: 12px;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+
+  .project-link:hover {
+    color: var(--text-primary);
+    background-color: var(--bg-tertiary);
+    border-color: var(--accent-primary);
+    text-decoration: none;
+  }
+
+  .self-destructing-container {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-default);
+    border-radius: 16px;
+    padding: 32px;
+    margin: 32px 0;
+  }
+
+  .destructing-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 16px 0;
+  }
+
+  .destructing-textarea {
+    width: 100%;
+    min-height: 200px;
+    margin: 16px 0;
+    padding: 16px;
+    border: 1px solid var(--border-default);
+    border-radius: 12px;
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    resize: vertical;
+    font-size: 1rem;
+    line-height: 1.5;
+    font-family: inherit;
+    transition: border-color 0.15s ease-in-out;
+  }
+
+  .destructing-textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+  }
+
+  .destructing-controls {
+    display: flex;
+    gap: 16px;
+    margin: 16px 0;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .destructing-select {
+    padding: 8px 16px;
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    min-width: 120px;
+  }
+
+  .destructing-button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--accent-primary);
+    color: var(--bg-primary);
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.15s ease-in-out;
+  }
+
+  .destructing-button:hover {
+    background-color: var(--accent-secondary);
+    transform: translateY(-1px);
+  }
+
+  .destructing-button:disabled {
+    background-color: var(--text-muted);
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .share-link-section {
+    margin-top: 24px;
+    padding: 20px;
+    background-color: var(--bg-tertiary);
+    border-radius: 12px;
+    display: none;
+  }
+
+  .share-link-section p {
+    margin: 0 0 12px;
+    color: var(--text-secondary);
+  }
+
+  .link-container {
+    display: flex;
+    gap: 8px;
+  }
+
+  .link-container input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+  }
+
+  .timer {
+    margin-top: 16px;
+    color: var(--accent-secondary);
+    font-weight: 500;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .destroyed {
+    display: none;
+    text-align: center;
+    padding: 32px;
+    color: var(--accent-secondary);
+    border: 1px solid var(--accent-secondary);
+    background-color: rgba(247, 129, 102, 0.1);
+    border-radius: 12px;
+    margin-top: 16px;
+  }
+
+  .feedback {
+    display: none;
+    padding: 8px 16px;
+    margin-top: 8px;
+    border-radius: 8px;
+    background-color: var(--accent-success);
+    color: var(--bg-primary);
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .project-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
     }
-  });
-</script>
-</body>
-</html>
+
+    .destructing-controls {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .destructing-select,
+    .destructing-button {
+      width: 100%;
+    }
+
+    .link-container {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<div class="project-grid">
+  <div class="project-card">
+    <h3 class="project-title">Danamon JCB D-Point Calculator</h3>
+    <p class="project-description">
+      Calculate your D-Point rewards for Danamon JCB credit card transactions. 
+      Helps users understand their rewards accumulation and optimize their spending patterns.
+    </p>
+    <div class="project-tech">
+      <span class="tech-tag">JavaScript</span>
+      <span class="tech-tag">Financial Tools</span>
+      <span class="tech-tag">Calculator</span>
+    </div>
+    <div class="project-links">
+      <a href="/dpoint.html" class="project-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"/>
+        </svg>
+        Live Demo
+      </a>
+    </div>
+  </div>
+</div>

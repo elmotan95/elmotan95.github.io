@@ -21,14 +21,33 @@
 title: Momokun.ID
 email: elmo.miharja@gmail.com
 description: >-
-  Senior Frontend Engineer with expertise in React Native and Mobile Applications.
+  Senior Frontend Engineer with 8+ years of expertise in React Native and mobile development. 
+  Leading teams, architecting solutions, and driving technical excellence at scale.
 baseurl: ""
 url: "https://momokun.id"
 github_username: elmotan95
+twitter_username: elmotan95
+linkedin_username: elmo-miharja
+
+# SEO and Social
+author: Elmo Miharja
+image: /assets/images/profile.jpg
+logo: /assets/images/logo.png
 
 # Build settings
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# SEO Plugin settings
+seo:
+  type: Person
+  name: Elmo Miharja
+  links:
+    - https://twitter.com/elmotan95
+    - https://github.com/elmotan95
+    - https://linkedin.com/in/elmo-miharja
 
 # Exclude from processing
 exclude:
